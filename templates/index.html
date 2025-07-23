@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Disease Predictor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<!--<link rel="stylesheet" href="style.css">-->
+</head>
+<body>
+  <div class="container">
+    <h1>Disease Predictor</h1>
+    <form id="symptom-form">
+      <label>Select Symptoms:</label><br>
+      <select id="symptoms" multiple required>
+        <!-- Dynamic symptom list will be loaded here -->
+      </select>
+      <br><br>
+      <button type="submit">Predict</button>
+    </form>
+    <h2 id="result"></h2>
+  </div>
+
+  <script>
+    const symptomSelect = document.getElementById('symptoms');
+    const resultDiv = document.getElementById('result');
+
+    async function fetchSymptoms() {
+      const res = await fetch('/symptoms');
+      const data = await res.json();
+      data.symptoms.forEach(symptom => {
+        const option = document.createElement('option');
+        option.value = symptom;
+        option.text = symptom;
+        symptomSelect.appendChild(option);
+      });
+    }
+
+    document.getElementById('symptom-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const selected = Array.from(symptomSelect.selectedOptions).map(opt => opt.value);
+      const res = await fetch('/predict', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({symptoms: selected})
+      });
+      const data = await res.json();
+      resultDiv.textContent = 'Predicted Disease: ' + data.prediction;
+    });
+
+    fetchSymptoms();
+  </script>
+</body>
+</html>
