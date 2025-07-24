@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <title>Disease Predictor</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h1>Disease Predictor</h1>
+  <div class="glass-card">
+    <h1>🧬 Disease Predictor</h1>
     <form id="symptom-form">
-      <label for="symptoms">Select Symptoms:</label>
+      <label for="symptoms">Choose Your Symptoms:</label>
       <select id="symptoms" multiple required></select>
-      <button type="submit">Predict</button>
+      <button type="submit">🔍 Predict</button>
     </form>
     <div id="result-container">
       <h2 id="result"></h2>
