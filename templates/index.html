@@ -1,24 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Disease Predictor</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<!--<link rel="stylesheet" href="style.css">-->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
     <h1>Disease Predictor</h1>
     <form id="symptom-form">
-      <label>Select Symptoms:</label><br>
-      <select id="symptoms" multiple required>
-        <!-- Dynamic symptom list will be loaded here -->
-      </select>
-      <br><br>
+      <label for="symptoms">Select Symptoms:</label>
+      <select id="symptoms" multiple required></select>
       <button type="submit">Predict</button>
     </form>
-    <h2 id="result"></h2>
+    <div id="result-container">
+      <h2 id="result"></h2>
+    </div>
   </div>
 
   <script>
@@ -45,7 +43,7 @@
         body: JSON.stringify({symptoms: selected})
       });
       const data = await res.json();
-      resultDiv.textContent = 'Predicted Disease: ' + data.prediction;
+      resultDiv.textContent = '🩺 Predicted Disease: ' + data.prediction;
     });
 
     fetchSymptoms();
